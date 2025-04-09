@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/DTO/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DTO/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Fabric/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Fabric/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/InterfazVistas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/InterfazVistas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Main/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Main/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/Controlador/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/Controlador/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/Fachada/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/Fachada/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/GestionMensajes/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/GestionMensajes/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/GestionNotificaciones/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/GestionNotificaciones/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/GestionUsuarios/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/GestionUsuarios/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/Observador/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Negocio/Observador/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Persistencia/Entidades/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Persistencia/Entidades/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Presentacion/VistaEscritorio/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Presentacion/VistaEscritorio/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servicios/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servicios/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Fachada" />
+        <module name="Controlador" />
+        <module name="Observador" />
+        <module name="Entidades" />
+        <module name="GestionMensajes" />
+        <module name="GestionUsuarios" />
+        <module name="VistaEscritorio" />
+        <module name="Fabric" />
+        <module name="Main" />
+        <module name="DTO" />
+        <module name="GestionNotificaciones" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="GUI" target="17" />
+      <module name="Servicios" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
