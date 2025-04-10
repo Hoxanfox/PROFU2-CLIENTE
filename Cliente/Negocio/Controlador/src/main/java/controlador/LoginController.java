@@ -1,8 +1,9 @@
 package controlador;
 
+import navegacion.ViewNavigator;
 import vistaEscritorio.login.LoginView;
-import gestionUsuarios.LoginService;
-import dto.LoginDTO;
+import gestionUsuarios.login.LoginService;
+import dto.login.LoginDTO;
 
 public class LoginController {
 
@@ -30,6 +31,8 @@ public class LoginController {
 
         if (success) {
             view.setStatus("Login successful!");
+            view.dispose(); // Cerramos la vista de login
+            ViewNavigator.showMainChatView(username);
         } else {
             view.setStatus("Login failed!");
         }
@@ -37,6 +40,7 @@ public class LoginController {
 
     private void register() {
         view.setStatus("Redirecting to registration...");
-        // Aquí podrías abrir otra vista o lanzar una acción de registro
+        view.dispose();
+        ViewNavigator.showRegisterView(); // Sin ciclo
     }
 }

@@ -20,6 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="GestionCanales" target="17" />
       <module name="GUI" target="17" />
       <module name="Servicios" target="17" />
     </bytecodeTargetLevel>

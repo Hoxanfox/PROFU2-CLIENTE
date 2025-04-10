@@ -7,63 +7,82 @@ public class MainChatView extends JFrame {
 
     private OnlineUsersPanel onlineUsersPanel;
     private NotificationsPanel notificationsPanel;
-    private ChannelsPanel channelsPanel;
+    private ChannelViewPanel channelsPanel;
     private StatusBarPanel statusBarPanel;
+    private String nombreUsuario;
 
-    public MainChatView() {
-        setTitle("CHAT CLIENT");
+    public MainChatView(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+
+        configureFrame();
+        initComponents();
+    }
+
+    private void configureFrame() {
+        setTitle("CHAT CLIENT - Bienvenido " + nombreUsuario);
         setSize(500, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        initComponents();
+        setLayout(new BorderLayout());
     }
 
     private void initComponents() {
-        setLayout(new BorderLayout());
+        setJMenuBar(createMenuBar());
+        add(createTopPanel(), BorderLayout.NORTH);
+        add(createCenterPanel(), BorderLayout.CENTER);
+        add(createChannelsPanel(), BorderLayout.WEST);
+        add(createStatusBarPanel(), BorderLayout.SOUTH);
+    }
 
-        // Barra de menú
+    private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(new JMenu("File"));
         menuBar.add(new JMenu("Edit"));
         menuBar.add(new JMenu("View"));
         menuBar.add(new JMenu("Help"));
-        setJMenuBar(menuBar);
+        return menuBar;
+    }
 
-        // Panel superior (ícono de notificaciones)
+    private JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.add(new JButton("🔔"));
-        add(topPanel, BorderLayout.NORTH);
+        return topPanel;
+    }
 
-        // Panel central dividido en usuarios y notificaciones
+    private JPanel createCenterPanel() {
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
         onlineUsersPanel = new OnlineUsersPanel();
         notificationsPanel = new NotificationsPanel();
         centerPanel.add(onlineUsersPanel);
         centerPanel.add(notificationsPanel);
-        add(centerPanel, BorderLayout.CENTER);
+        return centerPanel;
+    }
 
-        // Panel izquierdo con canales
-        channelsPanel = new ChannelsPanel();
-        add(channelsPanel, BorderLayout.WEST);
+    private JPanel createChannelsPanel() {
+        channelsPanel = new ChannelViewPanel();
+        return channelsPanel;
+    }
 
-        // Barra inferior
+    private JPanel createStatusBarPanel() {
         statusBarPanel = new StatusBarPanel();
-        add(statusBarPanel, BorderLayout.SOUTH);
+        return statusBarPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainChatView view = new MainChatView();
-            view.setVisible(true);
-
-            view.onlineUsersPanel.addUser("john_doe");
-            view.onlineUsersPanel.addUser("alice123");
-
-            view.notificationsPanel.addNotification("alice123 mentioned you in Team Alpha");
-
-            view.channelsPanel.addChannel("General");
-            view.channelsPanel.addChannel("Tech Support");
-        });
+    public ChannelViewPanel getChannelViewPanel() {
+        return channelsPanel;
     }
+
+    public OnlineUsersPanel getOnlineUsersPanel() {
+        return onlineUsersPanel;
+    }
+
+    public NotificationsPanel getNotificationsPanel() {
+        return notificationsPanel;
+    }
+
+    public StatusBarPanel getStatusBarPanel() {
+        return statusBarPanel;
+    }
+
 }

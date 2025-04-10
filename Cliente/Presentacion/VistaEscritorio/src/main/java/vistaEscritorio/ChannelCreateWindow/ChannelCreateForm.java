@@ -78,4 +78,8 @@ public class ChannelCreateForm extends JPanel {
     public JButton getCreateButton() {
         return createButton;
     }
+
+    public Label getChannelNameField() {
+        return null;
+    }
 }

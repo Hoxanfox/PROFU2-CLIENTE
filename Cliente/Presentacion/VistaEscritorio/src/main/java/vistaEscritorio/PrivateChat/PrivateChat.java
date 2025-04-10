@@ -1,14 +1,13 @@
 package vistaEscritorio.PrivateChat;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class PrivateChat extends JFrame {
 
-    private ChatDisplayPanel chatDisplayPanel;
-    private MessageInputPanel messageInputPanel;
-    private TypingStatusPanel typingStatusPanel;
-    private HeaderPanel headerPanel;
+    private final ChatDisplayPanel chatDisplayPanel;
+    private final MessageInputPanel messageInputPanel;
+    private final TypingStatusPanel typingStatusPanel;
+    private final HeaderPanel headerPanel;
 
     public PrivateChat(String contactName) {
         setTitle("CHAT CLIENT - Private Chat: " + contactName);
@@ -16,39 +15,31 @@ public class PrivateChat extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        initComponents(contactName);
+
+        this.chatDisplayPanel = new ChatDisplayPanel();
+        this.messageInputPanel = new MessageInputPanel();
+        this.typingStatusPanel = new TypingStatusPanel();
+        this.headerPanel = new HeaderPanel(contactName);
+
+        PrivateChatViewBuilder builder = new PrivateChatViewBuilder();
+        JPanel mainPanel = builder.buildChatPanel(contactName, headerPanel, chatDisplayPanel, messageInputPanel, typingStatusPanel);
+        setContentPane(mainPanel);
     }
 
-    private void initComponents(String contactName) {
-        setLayout(new BorderLayout());
-
-        headerPanel = new HeaderPanel(contactName);
-        chatDisplayPanel = new ChatDisplayPanel();
-        messageInputPanel = new MessageInputPanel();
-        typingStatusPanel = new TypingStatusPanel();
-
-        // Contenedor inferior que agrupa input y estado de escritura
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.add(messageInputPanel, BorderLayout.CENTER);
-        bottomPanel.add(typingStatusPanel, BorderLayout.SOUTH);
-
-        add(headerPanel, BorderLayout.NORTH);
-        add(chatDisplayPanel, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
+    // Métodos públicos para acceder a componentes si se necesita control externo
+    public ChatDisplayPanel getChatDisplayPanel() {
+        return chatDisplayPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            PrivateChat frame = new PrivateChat("alice123");
-            frame.setVisible(true);
+    public MessageInputPanel getMessageInputPanel() {
+        return messageInputPanel;
+    }
 
-            frame.chatDisplayPanel.appendMessage("john_doe - 20:15\nHey Alice, how's the project going?");
-            frame.chatDisplayPanel.appendMessage("alice123 - 20:16\nHi John! It's going well. I've finished the first module.");
-            frame.chatDisplayPanel.appendMessage("john_doe - 20:17\nThat's great! Can you send me the documentation?");
-            frame.chatDisplayPanel.appendMessage("alice123 - 20:18\nSure, here it is. [documentation.pdf]");
+    public TypingStatusPanel getTypingStatusPanel() {
+        return typingStatusPanel;
+    }
 
-            frame.typingStatusPanel.setStatus("alice123 is typing...");
-        });
+    public HeaderPanel getHeaderPanel() {
+        return headerPanel;
     }
 }
