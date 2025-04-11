@@ -1,9 +1,15 @@
 package controlador;
+import java.time.ZonedDateTime; // Asegúrate de importar esto
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import navegacion.ViewNavigator;
 import vistaEscritorio.login.LoginView;
 import gestionUsuarios.login.LoginService;
+import gestionUsuarios.register.JsonBuilder;
 import dto.login.LoginDTO;
+
+import javax.swing.*;
 
 public class LoginController {
 
@@ -13,7 +19,6 @@ public class LoginController {
     public LoginController(LoginView view, LoginService service) {
         this.view = view;
         this.service = service;
-
         initController();
     }
 
@@ -23,24 +28,46 @@ public class LoginController {
     }
 
     private void login() {
-        String username = view.getUsername();
+        String email = view.getUsername();
         String password = view.getPassword();
-        LoginDTO dto = new LoginDTO(username, password);
+        String ip = "192.168.1.100";
+        String fechaActual = ZonedDateTime.now().toString(); // <<==== AQUÍ
 
-        boolean success = service.authenticate(dto);
+        LoginDTO dto = new LoginDTO(email, password, fechaActual, ip);
 
-        if (success) {
-            view.setStatus("Login successful!");
-            view.dispose(); // Cerramos la vista de login
-            ViewNavigator.showMainChatView(username);
-        } else {
-            view.setStatus("Login failed!");
+        try {
+            String responseJson = service.sendLoginRequest(dto);
+            if (responseJson != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode responseNode = mapper.readTree(responseJson);
+
+                String estado = responseNode.get("estado").asText();
+                if ("éxito".equalsIgnoreCase(estado)) {
+                    String nombre = responseNode.has("nombre") ? responseNode.get("nombre").asText() : "";
+                    String rol = responseNode.has("rol") ? responseNode.get("rol").asText() : "";
+                    String fotoBase64 = responseNode.has("foto") ? responseNode.get("foto").asText() : "";
+
+                    view.setStatus("Bienvenido, " + nombre + " (" + rol + ")");
+                    view.dispose();
+                    ViewNavigator.showMainChatView(nombre);
+                } else {
+                    view.setStatus("Credenciales incorrectas.");
+                }
+
+            } else {
+                view.setStatus("Fallo al iniciar sesión.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(view, "Error de conexión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+
+
     private void register() {
-        view.setStatus("Redirecting to registration...");
+        view.setStatus("Redirigiendo al registro...");
         view.dispose();
-        ViewNavigator.showRegisterView(); // Sin ciclo
+        ViewNavigator.showRegisterView(); // Ir al registro
     }
 }

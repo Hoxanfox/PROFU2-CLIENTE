@@ -2,6 +2,7 @@ package gestionUsuarios.register;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import dto.login.LoginDTO;
 import dto.register.RegisterDTO;
 
 import java.time.ZonedDateTime;
@@ -27,6 +28,22 @@ public class JsonBuilder {
         datos.put("foto", fotoBase64);
         datos.put("fecha_actual", ZonedDateTime.now().toString());
         datos.put("ip", dto.getIp());
+
+        return mapper.writeValueAsString(root);
+    }
+
+    public static String construirJsonLogin(LoginDTO loginData) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode root = mapper.createObjectNode();
+        root.put("tipo_ruta", "POST");
+        root.put("nombre_ruta", "LOGIN_USER");
+
+        ObjectNode datos = root.putObject("datos");
+        datos.put("email", loginData.getEmail());
+        datos.put("password", loginData.getPassword());
+        datos.put("fecha_actual", ZonedDateTime.now().toString());
+        datos.put("ip", loginData.getIp());
 
         return mapper.writeValueAsString(root);
     }
