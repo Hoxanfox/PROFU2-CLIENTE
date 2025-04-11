@@ -3,7 +3,8 @@ package fabric;
 import controlador.ChannelCreateController;
 import controlador.LoginController;
 import controlador.RegisterController;
-import gestionUsuarios.ChannelService;
+import gestionUsuarios.lobby.ChannelService;
+
 import gestionUsuarios.login.LoginService;
 import gestionUsuarios.register.RegisterService;
 import navegacion.ViewNavigator;

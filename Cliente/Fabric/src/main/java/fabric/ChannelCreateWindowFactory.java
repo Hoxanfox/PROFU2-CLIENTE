@@ -1,7 +1,7 @@
 package fabric;
 
 import controlador.ChannelCreateController;
-import gestionUsuarios.ChannelService;
+import gestionUsuarios.lobby.ChannelService; // Asegúrate que sea el correcto
 import vistaEscritorio.ChannelCreateWindow.ChannelCreateForm;
 import vistaEscritorio.ChannelCreateWindow.ChannelCreateWindow;
 

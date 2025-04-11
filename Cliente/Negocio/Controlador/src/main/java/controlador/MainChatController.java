@@ -1,6 +1,9 @@
 package controlador;
 
+import vistaEscritorio.ChannelWindow.ChannelWindow;
 import vistaEscritorio.Lobby.*;
+
+import javax.swing.*;
 
 public class MainChatController {
 
@@ -12,20 +15,33 @@ public class MainChatController {
     }
 
     private void initListeners() {
-        // Accedemos al panel de canales para registrar el listener
         ChannelViewPanel channelPanel = view.getChannelViewPanel();
 
         if (channelPanel != null) {
-            channelPanel.setChannelViewListener(() -> {
-                // Lógica cuando se hace clic en "+ Create Channel"
-                System.out.println("Create Channel button clicked");
-                navegacion.ViewNavigator.showChannelCreateView();
+            channelPanel.setChannelViewListener(new ChannelViewListener() {
+                @Override
+                public void onCreateChannelClicked() {
+                    System.out.println("Create Channel button clicked");
+                    navegacion.ViewNavigator.showChannelCreateView();
+                }
+
+                @Override
+                public void onChannelSelected(String channelName) {
+                    System.out.println("Channel selected: " + channelName);
+
+                    // Simulación: deberías obtener los miembros desde un servicio real
+                    String[] members = {"john_doe", "alice123", "emma_j"};
+
+                    // Crear y mostrar la ventana del canal
+                    SwingUtilities.invokeLater(() -> {
+                        ChannelWindow channelWindow = new ChannelWindow(channelName, members);
+                        channelWindow.setVisible(true);
+                    });
+                }
+
             });
         }
 
-        // Puedes agregar más listeners si fuera necesario para:
-        // - NotificationsPanel
-        // - OnlineUsersPanel
-        // - StatusBarPanel
+        // Puedes agregar más listeners si fuera necesario
     }
 }

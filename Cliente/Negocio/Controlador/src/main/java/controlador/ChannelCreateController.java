@@ -1,7 +1,7 @@
 package controlador;
 
-import dto.ChannelDTO;
-import gestionUsuarios.ChannelService;
+import dto.lobby.ChannelDTO;
+import gestionUsuarios.lobby.ChannelService;
 import vistaEscritorio.ChannelCreateWindow.ChannelCreateForm;
 
 import javax.swing.*;

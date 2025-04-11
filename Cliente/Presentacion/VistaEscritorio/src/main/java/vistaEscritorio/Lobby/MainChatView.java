@@ -1,5 +1,10 @@
 package vistaEscritorio.Lobby;
 
+import dto.lobby.ChannelDTO;
+import gestionUsuarios.lobby.ChannelService;
+import gestionUsuarios.lobby.NotificationService;
+import vistaEscritorio.ChannelWindow.ChannelWindow;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -53,16 +58,51 @@ public class MainChatView extends JFrame {
     private JPanel createCenterPanel() {
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
         onlineUsersPanel = new OnlineUsersPanel();
-        notificationsPanel = new NotificationsPanel();
+        notificationsPanel = new NotificationsPanel(new NotificationService());
+
         centerPanel.add(onlineUsersPanel);
         centerPanel.add(notificationsPanel);
         return centerPanel;
     }
 
     private JPanel createChannelsPanel() {
-        channelsPanel = new ChannelViewPanel();
+        channelsPanel = new ChannelViewPanel(nombreUsuario);
+
+        channelsPanel.setChannelViewListener(new ChannelViewListener() {
+            @Override
+            public void onCreateChannelClicked() {
+                JOptionPane.showMessageDialog(MainChatView.this, "Funcionalidad de creación aún no implementada.");
+            }
+
+            @Override
+            public void onChannelSelected(String channelName) {
+                ChannelService service = new ChannelService();
+
+                for (String userChannel : service.getChannelsForUser(nombreUsuario)) {
+                    channelsPanel.addChannel(userChannel);
+                }
+
+                ChannelDTO channel = service.getChannelDetails(channelName);
+
+                if (channel != null) {
+                    SwingUtilities.invokeLater(() -> {
+                        ChannelWindow window = new ChannelWindow(
+                                channel.getName(),
+                                channel.getMembers().toArray(new String[0])
+                        );
+
+                        window.setVisible(true);
+                    });
+                } else {
+                    JOptionPane.showMessageDialog(MainChatView.this, "No se pudo abrir el canal: " + channelName);
+                }
+            }
+        });
+
         return channelsPanel;
     }
+
+
 
     private JPanel createStatusBarPanel() {
         statusBarPanel = new StatusBarPanel();

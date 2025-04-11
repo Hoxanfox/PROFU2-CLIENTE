@@ -19,6 +19,11 @@ public class ChannelViewPanelController {
             public void onCreateChannelClicked() {
                 ViewNavigator.showChannelCreateView();
             }
+
+            @Override
+            public void onChannelSelected(String channelName) {
+                // Puedes dejarlo vacío si no necesitas manejarlo aquí.
+            }
         });
     }
 

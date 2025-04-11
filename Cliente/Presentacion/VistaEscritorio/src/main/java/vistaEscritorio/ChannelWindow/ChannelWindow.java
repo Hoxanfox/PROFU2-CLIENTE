@@ -1,10 +1,16 @@
 package vistaEscritorio.ChannelWindow;
 
+import dto.lobby.UsuarioOnlineDTO;
+import vistaEscritorio.InviteMembers.InviteMembersDialog;
 import vistaEscritorio.PrivateChat.ChatDisplayPanel;
 import vistaEscritorio.PrivateChat.MessageInputPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ChannelWindow extends JFrame {
 
@@ -21,6 +27,26 @@ public class ChannelWindow extends JFrame {
         setResizable(false);
 
         initComponents(channelName, members);
+
+        // 🔴 Listener para cerrar la ventana
+        headerPanel.addCloseListener(e -> dispose());
+
+        // ✅ Callback para mostrar el diálogo de invitar miembros
+        headerPanel.setOnViewMembersCallback(() -> {
+            InviteMembersDialog dialog = new InviteMembersDialog(this, channelName);
+
+            // 🔧 Generar usuarios ficticios
+            List<UsuarioOnlineDTO> fakeUsers = generarUsuariosFicticios();
+
+            dialog.populateUserList(fakeUsers);
+
+            dialog.setOnInviteListener(usernames -> {
+                System.out.println("Invited users: " + usernames);
+                // Aquí puedes añadir lógica adicional, como actualizar la lista del canal, etc.
+            });
+
+            dialog.setVisible(true);
+        });
     }
 
     private void initComponents(String channelName, String[] members) {
@@ -40,17 +66,10 @@ public class ChannelWindow extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ChannelWindow window = new ChannelWindow("Team Alpha", new String[]{"john_doe", "alice123"});
-            window.setVisible(true);
-
-            window.chatDisplayPanel.appendMessage("SYSTEM - 20:10\nWelcome to Team Alpha channel");
-            window.chatDisplayPanel.appendMessage("john_doe - 20:15\nHey team, let's discuss the upcoming release");
-            window.chatDisplayPanel.appendMessage("alice123 - 20:16\nI've prepared the test cases");
-            window.chatDisplayPanel.appendMessage("bob_smith - 20:17\nGreat! I've finished the backend implementation");
-            window.chatDisplayPanel.appendMessage("emma_j - 20:18\nThe UI is ready for review");
-            window.chatDisplayPanel.appendMessage("john_doe - 20:20\nLet's meet tomorrow to finalize everything");
-        });
+    private List<UsuarioOnlineDTO> generarUsuariosFicticios() {
+        String[] nombres = {"Alice", "Bob", "Charlie"};
+        return IntStream.range(0, nombres.length)
+                .mapToObj(i -> new UsuarioOnlineDTO(nombres[i], "online", i + 1))
+                .collect(Collectors.toList());
     }
 }
